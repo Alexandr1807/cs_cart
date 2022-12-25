@@ -20,7 +20,7 @@ if ($mode == 'departments') {
     Tygh::$app['view']->assign('columns', 3);
     
     
-    fn_add_breadcrumb("Коллекции");
+    fn_add_breadcrumb("Отделы");
 }  elseif ($mode === 'department') {
     $department_data = [];
     $department_id = !empty($_REQUEST['department_id']) ? $_REQUEST['department_id'] : 0;
@@ -34,7 +34,7 @@ if ($mode == 'departments') {
     
     Tygh::$app['view']->assign('department_data', $department_data);
 
-    fn_add_breadcrumb(["Коллекции", $department_data['department']]);
+    fn_add_breadcrumb(["Отделы", $department_data['department']]);
 
 
     $params = $_REQUEST;
