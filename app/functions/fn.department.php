@@ -46,7 +46,7 @@ function fn_get_departments($params = [], $items_per_page = 0, $lang_code = CART
     // Set default values to input params
    $default_params = array(
        'page' => 1,
-       'items_per_page' => $items_per_page
+       'items_per_page' => 3
    );
 
    $params = array_merge($default_params, $params);
@@ -181,4 +181,15 @@ function fn_get_department_users($users_ids) {
         $arr[$user_id] = db_get_row("SELECT * FROM ?:users WHERE user_id = ?i", $user_id);
     }
     return $arr;
+}
+
+function fn_get_department_lider($departments) {   
+    $lider_arr = array();
+    foreach ($departments as $department) {
+        $lider = db_get_row("SELECT * FROM ?:users WHERE user_id = ?i", $department['lider_id']);
+        $department['lider_firstname'] = $lider['firstname'];
+        $department['lider_lastname'] = $lider['lastname'];
+        $lider_arr[] = $department;
+    }
+    return $lider_arr;
 }

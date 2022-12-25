@@ -1,7 +1,5 @@
 {if $departments}
-
     {script src="js/tygh/exceptions.js"}
-    
 
     {if !$no_pagination}
         {include file="common/pagination.tpl"}
@@ -44,6 +42,13 @@
                                     <bdi>
                                         <a href="{"departments.department?department_id={$department.department_id}"|fn_url}" class="product-title" title="{$department.department}">{$department.department}</a>
                                     </bdi>
+                                </div>
+
+                                <div class="ty-grid-list__item-name">
+                                    <p class="product-title">
+                                        Руководитель
+                                    </p>
+                                    {$department.lider_firstname} {$department.lider_lastname}
                                 </div>
 
                             </div>
