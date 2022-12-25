@@ -174,3 +174,11 @@ function fn_department_add_links($department_id, $users_ids) {
 function fn_department_get_links($department_id) {
    return !empty($department_id) ? db_get_fields('SELECT user_id FROM ?:department_links WHERE department_id = ?i', $department_id) : [];
 }
+
+function fn_get_department_users($users_ids) {
+    $arr = [];
+    foreach ($users_ids as $user_id) {
+        $arr[$user_id] = db_get_row("SELECT * FROM ?:users WHERE user_id = ?i", $user_id);
+    }
+    return $arr;
+}
