@@ -57,15 +57,15 @@
         {include file="common/select_status.tpl" input_name="department_data[status]" id="elm_banner_status" obj_id=$id obj=$department_data hidden=false}
 
         <div class="control-group">
-            <label class="control-label">{__("users")}</label>
+            <label class="control-label">Руководитель</label>
             <div class="controls">
                 {include 
                     file="pickers/users/picker.tpl" 
-                    but_text=__("add_recipients_from_users") 
+                    but_text="Добавить руководителя отдела" 
                     data_id="return_users" 
                     but_meta="btn" 
-                    input_name="department_data[user_id]" 
-                    item_ids=$department_data.user_id 
+                    input_name="department_data[lider_id]" 
+                    item_ids=$department_data.lider_id 
                     placement="right"
                     display="radio"
                     view_mode="single_button"
@@ -73,13 +73,20 @@
             </div>
         </div>
 
-        {include file="views/products/components/picker/picker.tpl"
-            input_name="department_data[users_ids][]"
-            item_ids=$department_data.users_ids
-            multiple=true
-            view_mode="external"
-            select_group_class="btn-toolbar"
-        }
+        <div class="control-group">
+            <label class="control-label">Сотрудники</label>
+            <div class="controls">
+                {include file="pickers/users/picker.tpl"
+                    but_text="Добавить сотрудников в отдел"
+                    data_id="return_users"
+                    but_meta="btn"
+                    input_name="department_data[users_ids]" 
+                    item_ids=$department_data.users_ids
+                    placement="right"}
+            </div>
+        </div>
+
+        
 
         {capture name="buttons"}
             {if !$id}

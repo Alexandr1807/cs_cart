@@ -68,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD']	== 'POST') {
     //
     if ($mode == 'update') {
         $newsletter_id = fn_update_newsletter($_REQUEST['newsletter_data'], $_REQUEST['newsletter_id'], DESCR_SL);
-
         return array(CONTROLLER_STATUS_OK, 'newsletters.update?newsletter_id=' . $newsletter_id);
     }
 
@@ -349,8 +348,8 @@ if ($mode == 'batch_send' && !empty($_REQUEST['key'])) {
 // newsletter update page
 } elseif ($mode == 'update') {
     $newsletter_id = !empty($_REQUEST['newsletter_id']) ? intval($_REQUEST['newsletter_id']) : 0;
-
     $newsletter_data = fn_get_newsletter_data($newsletter_id, DESCR_SL);
+    fn_print_die($newsletter_data);
 
     if (empty($newsletter_data)) {
         return array(CONTROLLER_STATUS_NO_PAGE);
