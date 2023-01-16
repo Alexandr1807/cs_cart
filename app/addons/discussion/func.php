@@ -94,7 +94,6 @@ function fn_get_discussions($params, $items_per_page = 0)
     $sorting = db_sort($params, $sortings, 'timestamp', 'desc');
 
     $condition = $join = $limit = '';
-
     if (!empty($params['user_id'])) {
         $condition .= db_quote(' AND ?:discussion_posts.user_id IN (?n)', (array) $params['user_id']);
     }

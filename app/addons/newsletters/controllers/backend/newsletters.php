@@ -68,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD']	== 'POST') {
     //
     if ($mode == 'update') {
         $newsletter_id = fn_update_newsletter($_REQUEST['newsletter_data'], $_REQUEST['newsletter_id'], DESCR_SL);
-
         return array(CONTROLLER_STATUS_OK, 'newsletters.update?newsletter_id=' . $newsletter_id);
     }
 
@@ -349,7 +348,6 @@ if ($mode == 'batch_send' && !empty($_REQUEST['key'])) {
 // newsletter update page
 } elseif ($mode == 'update') {
     $newsletter_id = !empty($_REQUEST['newsletter_id']) ? intval($_REQUEST['newsletter_id']) : 0;
-
     $newsletter_data = fn_get_newsletter_data($newsletter_id, DESCR_SL);
 
     if (empty($newsletter_data)) {
@@ -377,7 +375,6 @@ if ($mode == 'batch_send' && !empty($_REQUEST['key'])) {
     Tygh::$app['view']->assign('mailing_lists', $mailing_lists);
 
     Tygh::$app['view']->assign('newsletter_users', db_get_fields("SELECT user_id FROM ?:users WHERE user_id IN(?n) ", explode(',', $newsletter_data['users'])));
-
 // newsletter creation page
 } elseif ($mode == 'add') {
 
