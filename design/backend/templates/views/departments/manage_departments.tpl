@@ -123,7 +123,7 @@
 
 
 {hook name="departments:manage_mainbox_params"}
-    {$page_title = "Отделы"}
+    {$page_title = __(departments)}
     {$select_languages = true}
 {/hook}
 

@@ -1,29 +1,8 @@
 <?php
 
-
-
-use Tygh\BlockManager\Block;
-use Tygh\BlockManager\ProductTabs;
-use Tygh\Enum\ImagePairTypes;
-use Tygh\Enum\ObjectStatuses;
-use Tygh\Enum\OutOfStockActions;
-use Tygh\Enum\ProductFeaturesDisplayOn;
-use Tygh\Enum\ProductTracking;
-use Tygh\Enum\UserTypes;
-use Tygh\Enum\YesNo;
 use Tygh\Languages\Languages;
-use Tygh\Navigation\LastView;
-use Tygh\Providers\StorefrontProvider;
-use Tygh\Registry;
-use Tygh\Storefront\Storefront;
-use Tygh\Themes\Themes;
-use Tygh\Tools\SecurityHelper;
-use Tygh\Enum\VendorStatuses;
-use Tygh\Enum\SiteArea;
-use Tygh\Settings;
 
 defined('BOOTSTRAP') or die('Access denied');
-
 
 function fn_get_department_data($department_id = 0, $lang_code = CART_LANGUAGE) {
     $department = [];
@@ -55,12 +34,12 @@ function fn_get_departments($params = [], $items_per_page = 0, $lang_code = CART
        $params['status'] = 'A';
     }
     
-    $sortings = array(
+    $sortings = [
         'position' => '?:departments.position',
         'timestamp' => '?:departments.timestamp',
         'name' => '?:department_descriptions.department',
         'status' => '?:departments.status',
-    );
+    ];
     
     $condition = $limit = $join = '';
     
@@ -77,22 +56,21 @@ function fn_get_departments($params = [], $items_per_page = 0, $lang_code = CART
     if (!empty($params['department_id'])) {
         $condition .= db_quote(' AND ?:departments.department_id = ?i', $params['department_id']);
     }
-    
-    //    if (!empty($params['user_id'])) {
-        //        $condition .= db_quote(' AND ?:departments.user_id = ?i', $params['user_id']);
-        //    }
         
     if (!empty($params['status'])) {
         $condition .= db_quote(' AND ?:departments.status = ?s', $params['status']);
     }
         
-    $fields = array (
+    $fields = [
         '?:departments.*',
         '?:department_descriptions.department',
         '?:department_descriptions.description',
-    );
+    ];
     
-    $join .= db_quote(' LEFT JOIN ?:department_descriptions ON ?:department_descriptions.department_id = ?:departments.department_id AND ?:department_descriptions.lang_code = ?s', $lang_code);
+    $join .= db_quote(' LEFT JOIN ?:department_descriptions ON
+                        ?:department_descriptions.department_id =
+                         ?:departments.department_id AND 
+                          ?:department_descriptions.lang_code = ?s', $lang_code);
     
     if (!empty($params['items_per_page'])) {
         $params['total_items'] = db_get_field("SELECT COUNT(*) FROM ?:departments $join WHERE 1 $condition");
@@ -136,8 +114,6 @@ function fn_update_department($data, $department_id, $lang_code = DESCR_SL)
    if (!empty($department_id)) {
        fn_attach_image_pairs('department', 'department', $department_id, $lang_code);
    }
-   
-   $lider_id = !empty($data['lider_id']) ? $data['lider_id'] : [];
    $users_ids = !empty($data['users_ids']) ? $data['users_ids'] : [];
    $users_ids = explode("," , $users_ids);
 
@@ -184,7 +160,7 @@ function fn_get_department_users($users_ids) {
 }
 
 function fn_get_department_lider($departments) {   
-    $lider_arr = array();
+    $lider_arr = [];
     foreach ($departments as $department) {
         $lider = db_get_row("SELECT * FROM ?:users WHERE user_id = ?i", $department['lider_id']);
         $department['lider_firstname'] = $lider['firstname'];

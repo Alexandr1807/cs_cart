@@ -29,8 +29,6 @@ if ($mode == 'get_new_post_form') {
     $object_type = isset($_REQUEST['object_type']) ? $_REQUEST['object_type'] : '';
     $render_form = true;
 
-    fn_print_die($_REQUEST);
-
     if (!isset($object_id) || empty($object_type)) {
         fn_set_notification('E', __('error'), __('error_occured'));
         $render_form = false;

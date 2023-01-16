@@ -46,13 +46,14 @@
                 <textarea id="elm_banner_description" name="department_data[description]" cols="35" rows="8" class="cm-wysiwyg input-large">{$department_data.description}</textarea>
             </div>
         </div>
-
-        <div class="control-group">
-            <label class="control-label" for="elm_banner_timestamp_{$id}">{__("creation_date")}</label>
-            <div class="controls">
-            {include file="common/calendar.tpl" date_id="elm_banner_timestamp_`$id`" date_name="department_data[timestamp]" date_val=$department_data.timestamp|default:$smarty.const.TIME start_year=$settings.Company.company_start_year}
+        {if !$id}
+            <div class="control-group">
+                <label class="control-label" for="elm_banner_timestamp_{$id}">{__("creation_date")}</label>
+                <div class="controls">
+                {include file="common/calendar.tpl" date_id="elm_banner_timestamp_`$id`" date_name="department_data[timestamp]" date_val=$department_data.timestamp|default:$smarty.const.TIME start_year=$settings.Company.company_start_year}
+                </div>
             </div>
-        </div>
+        {/if}
 
         {include file="common/select_status.tpl" input_name="department_data[status]" id="elm_banner_status" obj_id=$id obj=$department_data hidden=false}
 
@@ -115,4 +116,3 @@
     content=$smarty.capture.mainbox
     buttons=$smarty.capture.buttons
     select_languages=true}
-

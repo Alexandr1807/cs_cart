@@ -1,7 +1,6 @@
 <?php
 
 use Tygh\Registry;
-use Tygh\BlockManager\ProductTabs;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
@@ -12,7 +11,7 @@ if ($mode == 'departments') {
     $params = $_REQUEST;
     
     $params['user_id'] = Tygh::$app['session']['auth']['user_id'];
-    list($departments, $search) = fn_get_departments($params, Registry::get('settings.Appearance.products_per_page'), CART_LANGUAGE);
+    list($departments, $search) = fn_get_departments($params, Registry::get('settings.Appearance.products_per_page'));
     $departments = fn_get_department_lider($departments);
 
     Tygh::$app['view']->assign('departments', $departments);
@@ -20,11 +19,11 @@ if ($mode == 'departments') {
     Tygh::$app['view']->assign('columns', 3);
     
     
-    fn_add_breadcrumb("Отделы");
+    fn_add_breadcrumb(__('departments'));
 }  elseif ($mode === 'department') {
     $department_data = [];
     $department_id = !empty($_REQUEST['department_id']) ? $_REQUEST['department_id'] : 0;
-    $department_data = fn_get_department_data($department_id, CART_LANGUAGE);
+    $department_data = fn_get_department_data($department_id);
     $dep_users = !empty($department_data['users_ids']) ? fn_get_department_users($department_data['users_ids']) : -1;
     $department_data['users_ids'] = $dep_users;
     
@@ -34,7 +33,7 @@ if ($mode == 'departments') {
     
     Tygh::$app['view']->assign('department_data', $department_data);
 
-    fn_add_breadcrumb(["Отделы", $department_data['department']]);
+    fn_add_breadcrumb([__('departments'), $department_data['department']]);
 
 
     $params = $_REQUEST;
